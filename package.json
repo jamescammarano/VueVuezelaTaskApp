@@ -46,7 +46,7 @@
       "vue-cli-service lint",
       "git add"
     ],
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{vue,json,css,scss,md}": [
       "prettier --write"
     ]
   }
