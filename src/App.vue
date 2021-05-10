@@ -1,5 +1,10 @@
 <template>
-  <TaskApp :completed-tasks="completedTasks" :tasks="tasks" @delete-task="deleteTask" />
+  <TaskApp
+    :completed-tasks="completedTasks"
+    :tasks="tasks"
+    @undelete-task="uncompleteTasks"
+    @delete-task="deleteTask"
+  />
 </template>
 
 <script lang="ts">
@@ -37,6 +42,10 @@ export default defineComponent({
     deleteTask(id: number) {
       this.completedTasks.push(this.tasks.filter(task => task.id === id)[0]);
       this.tasks = this.tasks.filter(task => task.id !== id);
+    },
+    uncompleteTasks(id: number) {
+      this.tasks.push(this.completedTasks.filter(task => task.id === id)[0]);
+      this.completedTasks = this.completedTasks.filter(task => task.id !== id);
     }
   }
 });

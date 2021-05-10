@@ -10,7 +10,10 @@
     <div>
       <h3>Completed Tasks</h3>
       <ul v-for="task in completedTasks" :key="task.id">
-        <li>{{ task.text }} <img alt="vuvuzela" src="../assets/vuvuzela.png" /></li>
+        <li>
+          {{ task.text }}
+          <img alt="vuvuzela" src="../assets/vuvuzela.png" @click="onUncomplete(task.id)" />
+        </li>
       </ul>
     </div>
     <button @click="onClick">Add Task</button>
@@ -45,13 +48,16 @@ const TaskApp = defineComponent({
       }
     }
   },
-  emits: ["delete-task"],
+  emits: ["delete-task", "undelete-task"],
   methods: {
     onClick(): void {
       console.log("click");
     },
     onDelete(id: number): void {
       this.$emit("delete-task", id);
+    },
+    onUncomplete(id: number): void {
+      this.$emit("undelete-task", id);
     }
   }
 });
