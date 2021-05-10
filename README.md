@@ -1,4 +1,6 @@
-# task-app
+# VueVuezela Tasks App
+
+A todo list that plays a vuvuzela sound when you complete a task.
 
 ## Project setup
 
