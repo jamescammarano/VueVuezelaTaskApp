@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="container">
     <div>
       <h1>VueVuezela Tasks</h1>
       <h3>To Do</h3>
       <ul v-for="task in tasks" :key="task.id">
-        <li>{{ task.text }} <button id="task.id" @click="onDelete(task.id)">Complete</button></li>
+        <Task :id="task.id" :day="task.day" :text="task.text" />
       </ul>
     </div>
     <div>
@@ -16,14 +16,20 @@
         </li>
       </ul>
     </div>
-    <button @click="onClick">Add Task</button>
+    <AddTask :on-click="onClick" />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
+import AddTask from './AddTask.vue';
+import Task from './Task.vue';
 
 const TaskApp = defineComponent({
-  name: "TaskApp",
+  name: 'TaskApp',
+  components: {
+    AddTask,
+    Task
+  },
   props: {
     tasks: {
       type: Array,
@@ -42,22 +48,23 @@ const TaskApp = defineComponent({
         return [
           {
             id: Number,
-            text: String
+            text: String,
+            day: String
           }
         ];
       }
     }
   },
-  emits: ["delete-task", "undelete-task"],
+  emits: ['delete-task', 'undelete-task'],
   methods: {
     onClick(): void {
-      console.log("click");
+      console.log('click');
     },
     onDelete(id: number): void {
-      this.$emit("delete-task", id);
+      this.$emit('delete-task', id);
     },
     onUncomplete(id: number): void {
-      this.$emit("undelete-task", id);
+      this.$emit('undelete-task', id);
     }
   }
 });
@@ -65,13 +72,27 @@ const TaskApp = defineComponent({
 export default TaskApp;
 </script>
 <style scoped lang="scss">
+.task {
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.task.reminder {
+  border-left: 5px solid green;
+}
+.task h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+h1 {
+  text-align: center;
+}
 h3 {
   margin: 40px 0 0;
 }
 a {
   color: #42b983;
-}
-img {
-  height: 30px;
 }
 </style>
